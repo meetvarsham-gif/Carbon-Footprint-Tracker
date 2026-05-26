@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco-Core AI - Tips</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if (!localStorage.getItem("currentUser")) window.location.href = "auth.html";
+  </script>
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">⚡ ECO-CORE AI <span>v2.6</span></div>
+        <ul class="nav-menu">
+          <li><a href="Index.html" class="nav-item">🛰️ Dashboard</a></li>
+          <li><a href="history.html" class="nav-item">📊 Tracking History</a></li>
+          <li><a href="tips.html" class="nav-item active">⚡ AI Recommendations</a></li>
+          <li><a href="profile.html" class="nav-item">🎛️ Settings</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <div>
+          <h2>AI Carbon Mitigation Tips</h2>
+          <p style="color:var(--text-muted)">Practical methods to optimize and reduce your carbon footprint values.</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h4 style="color:var(--neon-cyan); font-family:var(--font-display); font-size:1rem; margin-bottom:0.75rem">🚗 Commuting & Driving</h4>
+          <p style="font-size:1.05rem; color:var(--text-primary)">Reduce solo car travel. Switch short journeys to public transport, walking, or carbon-free alternatives like cycling.</p>
+        </div>
+        <div class="card">
+          <h4 style="color:var(--neon-cyan); font-family:var(--font-display); font-size:1rem; margin-bottom:0.75rem">🔌 Home Energy Consumption</h4>
+          <p style="font-size:1.05rem; color:var(--text-primary)">Unplug secondary electronics and standby devices to save electricity. Transition lighting configurations to energy-efficient LEDs.</p>
+        </div>
+        <div class="card">
+          <h4 style="color:var(--neon-cyan); font-family:var(--font-display); font-size:1rem; margin-bottom:0.75rem">🌱 Food & Eating Habits</h4>
+          <p style="font-size:1.05rem; color:var(--text-primary)">Incorporate more plant-based meals into your weekly routines to noticeably offset heavy agricultural footprint dependencies.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

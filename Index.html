@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco-Core AI - Command Deck</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    if (!localStorage.getItem("currentUser")) window.location.href = "auth.html";
+  </script>
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">⚡ ECO-CORE AI <span>v2.6</span></div>
+        <ul class="nav-menu">
+          <li><a href="Index.html" class="nav-item active">🛰️ Dashboard</a></li>
+          <li><a href="history.html" class="nav-item">📊 Tracking History</a></li>
+          <li><a href="tips.html" class="nav-item">⚡ AI Recommendations</a></li>
+          <li><a href="profile.html" class="nav-item">🎛️ Settings</a></li>
+        </ul>
+      </div>
+      <button class="btn-danger" id="sidebarLogout" style="width:100%">Log Out</button>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <div>
+          <h2>System Command Deck // <span id="helloUser" style="color:var(--neon-cyan)">OPERATOR</span></h2>
+          <p style="color: var(--text-muted)">Real-time carbon tracking diagnostics active.</p>
+        </div>
+        <a href="profile.html" class="avatar-circle" id="userInitial">OP</a>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <p class="card-title">Annual Carbon Footprint Result</p>
+          <div class="metric"><span id="latestScore">0.00</span> <span style="font-size:1.1rem; color:var(--text-muted); font-family:var(--font-display)">Tons CO₂/Yr</span></div>
+        </div>
+        <div class="card">
+          <p class="card-title">Environmental Impact Rating</p>
+          <div class="metric" id="ecoBadge" style="font-size:1.6rem; color:var(--neon-green)">Awaiting Data...</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; margin-top: 2rem;">
+        
+        <div class="card">
+          <h3 style="margin-bottom:1.5rem; font-family:var(--font-display); font-size:1.1rem; color:#fff">⚙️ Log Your Lifestyle Inputs</h3>
+          <form id="trackerForm">
+            <label>Daily Commute Distance (km / day) <input type="number" step="any" id="kmPerDay" value="0" required /></label>
+            <label>Monthly Electricity Usage (kWh) <input type="number" step="any" id="electricity" value="0" required /></label>
+            <label>Monthly Natural Gas Usage (Liters) <input type="number" step="any" id="gas" value="0" required /></label>
+            <label>Your Diet Type
+              <select id="diet">
+                <option value="vegetarian">Vegetarian / Vegan</option>
+                <option value="mixed">Mixed (Meat & Vegetables)</option>
+                <option value="meat-heavy">Heavy Meat Consumer</option>
+              </select>
+            </label>
+            <label>Flights Taken per Year <input type="number" step="any" id="flights" value="0" required /></label>
+            <button type="submit" class="btn-primary">Calculate Diagnostics</button>
+          </form>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <h3 style="margin-bottom: 1.5rem; align-self: flex-start; font-family:var(--font-display); font-size:1.1rem; color:#fff">🔮 Footprint Allocation Breakdown</h3>
+          <div style="width: 100%; max-width: 320px;">
+            <canvas id="distributionChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = localStorage.getItem("currentUser");
+      if(user) {
+        document.getElementById("helloUser").textContent = user.toUpperCase();
+        document.getElementById("userInitial").textContent = user[0].toUpperCase();
+      }
+
+      document.getElementById("sidebarLogout").addEventListener("click", () => {
+        localStorage.removeItem("currentUser");
+        window.location.href = "auth.html";
+      });
+
+      updateDashboardData();
+    });
+  </script>
+</body>
+</html>

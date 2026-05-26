@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenTracker AI - System Initialization</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .auth-card {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(25px);
+      border: 1px solid var(--border-neon);
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.1);
+      max-width: 420px;
+      width: 100%;
+    }
+    .auth-header h1 {
+      font-family: var(--font-display);
+      color: #fff;
+      text-shadow: 0 0 15px var(--neon-cyan);
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .auth-header p {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+    form { display: none; }
+    form.active { display: flex; flex-direction: column; }
+    .switch-mode {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .switch-mode span {
+      color: var(--neon-cyan);
+      cursor: pointer;
+      font-weight: 600;
+      text-shadow: 0 0 5px rgba(0,242,254,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>ECO-CORE ENGINE v2.6</h1>
+      <p id="subText">AUTHORIZED ACCESS ONLY. INITIALIZE ECO DIAGNOSTIC MODULE.</p>
+    </div>
+
+    <form id="loginForm" class="active">
+      <label>USER RECOGNITION ID <input type="text" id="loginUser" placeholder="Enter identity label..." required /></label>
+      <label>ACCESS CRYPTO KEY <input type="password" id="loginPass" placeholder="••••••••" required /></label>
+      <button type="submit" class="btn-primary">Connect System</button>
+    </form>
+
+    <form id="signupForm">
+      <label>GENERATE IDENTITY <input type="text" id="signupUser" placeholder="Create identity label..." required /></label>
+      <label>GENERATE SECURITY KEY <input type="password" id="signupPass" placeholder="••••••••" required /></label>
+      <button type="submit" class="btn-primary">Register New Node</button>
+    </form>
+
+    <div class="switch-mode">
+      <p id="toggleText">Node unlisted? <span id="switchBtn">Initialize Protocol</span></p>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const switchBtn = document.getElementById('switchBtn');
+    const subText = document.getElementById('subText');
+    let isLogin = true;
+
+    switchBtn.addEventListener('click', () => {
+      isLogin = !isLogin;
+      loginForm.classList.toggle('active', isLogin);
+      signupForm.classList.toggle('active', !isLogin);
+      subText.textContent = isLogin ? "AUTHORIZED ACCESS ONLY. INITIALIZE ECO DIAGNOSTIC MODULE." : "PROVISION NEW CLIMATE ANALYTICAL PROFILE NODE.";
+      switchBtn.textContent = isLogin ? "Initialize Protocol" : "Verify Identity";
+    });
+
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('signupUser').value.trim();
+      const pass = document.getElementById('signupPass').value;
+      if(localStorage.getItem(user)) {
+        alert("Identity already written inside Core Array.");
+        return;
+      }
+      localStorage.setItem(user, pass);
+      localStorage.setItem("currentUser", user);
+      window.location.href = "Index.html";
+    });
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      if(localStorage.getItem(user) === pass) {
+        localStorage.setItem("currentUser", user);
+        window.location.href = "Index.html";
+      } else {
+        alert("Security Handshake Refused: Invalid Credentials.");
+      }
+    });
+  </script>
+</body>
+</html>

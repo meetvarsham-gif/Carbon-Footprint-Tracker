@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco-Core AI - Settings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if (!localStorage.getItem("currentUser")) window.location.href = "auth.html";
+  </script>
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">⚡ ECO-CORE AI <span>v2.6</span></div>
+        <ul class="nav-menu">
+          <li><a href="Index.html" class="nav-item">🛰️ Dashboard</a></li>
+          <li><a href="history.html" class="nav-item">📊 Tracking History</a></li>
+          <li><a href="tips.html" class="nav-item">⚡ AI Recommendations</a></li>
+          <li><a href="profile.html" class="nav-item active">🎛️ Settings</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <div>
+          <h2>Account Settings</h2>
+          <p style="color:var(--text-muted)">Manage your profile security passphrase or delete data registries.</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem;">
+        <div class="card">
+          <h3 style="font-family:var(--font-display); font-size:1.1rem; margin-bottom:1rem;">Change Password</h3>
+          <div style="margin-top:1rem">
+            <label>NEW PASSWORD <input type="password" id="profileNewPass" placeholder="Enter new password..." /></label>
+            <button class="btn-primary" id="updatePassBtn" style="width:100%">Update Password</button>
+          </div>
+        </div>
+
+        <div class="card" style="border: 1px dashed var(--neon-red);">
+          <h3 style="color:var(--neon-red); font-family:var(--font-display); font-size:1.1rem; margin-bottom:1rem;">Delete Profile Node</h3>
+          <p style="font-size:1rem; margin: 1rem 0; color:var(--text-primary)">Warning: Proceeding will erase your account identity and delete all matching carbon history entries permanently.</p>
+          <button class="btn-danger" id="deleteAccountBtn" style="width:100%">Delete Account Permanently</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("updatePassBtn").addEventListener("click", () => {
+      const user = localStorage.getItem("currentUser");
+      const passVal = document.getElementById("profileNewPass").value;
+      if(passVal.length < 4) {
+        alert("Password must contain at least 4 characters.");
+        return;
+      }
+      localStorage.setItem(user, passVal);
+      alert("Password updated successfully.");
+      document.getElementById("profileNewPass").value = "";
+    });
+
+    document.getElementById("deleteAccountBtn").addEventListener("click", () => {
+      if(confirm("Are you sure you want to delete your profile permanently?")) {
+        const user = localStorage.getItem("currentUser");
+        localStorage.removeItem(`carbonHistory_${user}`);
+        localStorage.removeItem(user);
+        localStorage.removeItem("currentUser");
+        window.location.href = "auth.html";
+      }
+    });
+  </script>
+</body>
+</html>
